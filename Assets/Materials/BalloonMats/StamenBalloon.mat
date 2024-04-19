@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Pollen
+  m_Name: StamenBalloon
   m_Shader: {fileID: -6465566751694194690, guid: 47133e8b4a2219c49b97876d1d247f63, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -98,7 +98,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.9887359, g: 1, b: 0, a: 1}
+    - _Color: {r: 0.73202205, g: 0.82405394, b: 0.8867924, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Vector3: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
