@@ -12,6 +12,9 @@
 
 # Visual Studio / MonoDevelop / Rider generated files
 .vscode/
+.vs/
+.vsconfig
+UserSettings/
 *.sln
 *.csproj
 *.suo
