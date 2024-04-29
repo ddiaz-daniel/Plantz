@@ -22,17 +22,17 @@ public class Plant : MonoBehaviour
         this.location = location;
         plantedAt = DateTime.Now;
 
-        //Generate a default length variating by 10%
-        this.maxLength = UnityEngine.Random.Range(this.plantType.defaultLength * 0.95f, this.plantType.defaultLength * 1.05f);
+        //Generate a default length variating by 10%, with a minimum of 1
+        this.maxLength = Mathf.Max(1, UnityEngine.Random.Range(this.plantType.defaultLength * 0.95f, this.plantType.defaultLength * 1.05f));
 
-        //Generate a default growChance variating by 10%
-        this.growChance = (int)UnityEngine.Random.Range(this.plantType.defaultGrowChance * 0.95f, this.plantType.defaultGrowChance * 1.05f);
+        //Generate a default growChance variating by 2%, with a minimum of 1%
+        this.growChance = Mathf.Max(1, (int)UnityEngine.Random.Range(this.plantType.defaultGrowChance - 1, this.plantType.defaultGrowChance + 1));
     }
 
     public void GiveWater()
     {
-        // The max length is increased by 10%
-        float newMaxLength = this.maxLength * 1.1f;
+        // The max length is increased by 5%
+        float newMaxLength = this.maxLength * 1.05f;
         if (newMaxLength <= this.plantType.maxLength)
         {
             this.maxLength = newMaxLength;
@@ -42,10 +42,14 @@ public class Plant : MonoBehaviour
     public void GiveFertilization()
     {
         //The growspeed is increased by 1%
-        int newGrowChance = (int)(this.growChance * 1.1);
+        int newGrowChance = this.growChance + 1;
         if (newGrowChance > 100)
         {
             this.growChance = 100;
+        }
+        else
+        {
+            this.growChance = newGrowChance;
         }
     }
 
