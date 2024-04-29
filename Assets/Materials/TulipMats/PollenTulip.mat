@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Pollen
+  m_Name: PollenTulip
   m_Shader: {fileID: -6465566751694194690, guid: 47133e8b4a2219c49b97876d1d247f63, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
