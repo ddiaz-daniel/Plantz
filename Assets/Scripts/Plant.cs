@@ -1,8 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Numerics;
 using UnityEngine;
 
 public class Plant : MonoBehaviour
@@ -15,44 +11,21 @@ public class Plant : MonoBehaviour
     public DateTime plantedAt { get; }
     public int growChance { get; set; } // 0% - 100%
 
-    public Plant(PlantType plantType, Location location)
+    public Plant(PlantType plantType, Location location, DiceRolls diceRolls)
     {
         Id = Guid.NewGuid();
         this.plantType = plantType;
         this.location = location;
         plantedAt = DateTime.Now;
 
-        //Generate a default length variating by 10%, with a minimum of 1
-        this.maxLength = Mathf.Max(1, UnityEngine.Random.Range(this.plantType.defaultLength * 0.95f, this.plantType.defaultLength * 1.05f));
+        //It either grows untl the plantType.maxLength with a LengthFactor of 1
+        //Or it grows 50% smaller then the difference between the max and default length.
+        float lengthDiff = plantType.maxLength - plantType.defaultLength;
+        this.maxLength = plantType.defaultLength - (diceRolls.GetLengthFactor() * lengthDiff);
 
-        //Generate a default growChance variating by 2%, with a minimum of 1%
-        this.growChance = Mathf.Max(1, (int)UnityEngine.Random.Range(this.plantType.defaultGrowChance - 1, this.plantType.defaultGrowChance + 1));
+        //A grow chance from plantType.defaultGrowChance until 100%
+        this.growChance = (100 - plantType.defaultGrowChance) / 100 * diceRolls.GetGrowChance() + plantType.defaultGrowChance;
     }
-
-    public void GiveWater()
-    {
-        // The max length is increased by 5%
-        float newMaxLength = this.maxLength * 1.05f;
-        if (newMaxLength <= this.plantType.maxLength)
-        {
-            this.maxLength = newMaxLength;
-        }
-    }
-
-    public void GiveFertilization()
-    {
-        //The growspeed is increased by 1%
-        int newGrowChance = this.growChance + 1;
-        if (newGrowChance > 100)
-        {
-            this.growChance = 100;
-        }
-        else
-        {
-            this.growChance = newGrowChance;
-        }
-    }
-
     public void UpdateGameTick()
     {
         if (this.growChance > 0)
@@ -76,11 +49,5 @@ public class Plant : MonoBehaviour
                 Debug.Log("PLANT GREW: " + Id.ToString() + " CURRENT LENGTH: " + currentLength.ToString());
             }
         }
-    }
-
-    public bool CheckInFacinity(Location location)
-    {
-        // 1f is hardcoded faccinity for now, but if you want every planttype could have a custom value
-        return this.location.CalcDistance(location) < 1f;
     }
 }
