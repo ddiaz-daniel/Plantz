@@ -12,7 +12,7 @@ public class DiceRolls : MonoBehaviour
 
     public DiceRolls()
     {
-        //Random Dice values between 0 and 5
+        //Random Dice values between 1 and 6
         this.soilQuality = Random.Range(0, 6);
         this.temperature = Random.Range(0, 6);
         this.sun = Random.Range(0, 6);
@@ -34,10 +34,20 @@ public class DiceRolls : MonoBehaviour
         this.airPolution = airPolution - 1;
     }
 
+    public float GetFactor(float value, float valueWeight)
+    {
+        return value * valueWeight;
+    }
+
+    public float GetFactorMin1(float value, float valueWeight)
+    {
+        return Mathf.Max(1, value * valueWeight);
+    }
+
     /**
-     * Value between 0% and 100%
+     * Value between -0.5 and 2
      */
-    public int GetGrowChance()
+    public float GetGrowFactor()
     {
         const int temperatureWeight = 7;
         const int sunWeight = 9;
@@ -46,11 +56,10 @@ public class DiceRolls : MonoBehaviour
         const int humidityWeight = 11;
         int positiveTotalWeight = temperatureWeight + sunWeight + rainWeight + soilQualityWeight + humidityWeight;
 
-        float growthValue = (temperature * temperatureWeight * sun * sunWeight * rain * rainWeight * soilQuality * soilQualityWeight * humidity * humidityWeight) / positiveTotalWeight;
-        growthValue = growthValue / (5 ^ 5); // Value between 0 and 1
-        int growChance = (int)(growthValue * 100); //Value between 0 and 100
-
-        return growChance;
+        float growthValue = (GetFactor(temperature, temperatureWeight) + GetFactor(sun, sunWeight) + GetFactor(rain, rainWeight) + GetFactor(soilQuality, soilQualityWeight) + GetFactor(humidity, humidityWeight)) / positiveTotalWeight;
+        growthValue = growthValue / 5; // Value between 0 and 1
+        float growFactor = growthValue * 2.5f - 0.5f; // Value between -0.5 and 2
+        return growFactor;
     }
 
     /**
@@ -69,11 +78,10 @@ public class DiceRolls : MonoBehaviour
         const int radiationWeight = 5;
         int negativeTotalWeight = airPolutionWeight + radiationWeight;
 
-        float positiveFactors = (temperature * temperatureWeight * sun * sunWeight * rain * rainWeight * soilQuality * soilQualityWeight * humidity * humidityWeight) / positiveTotalWeight;
-        positiveFactors = positiveFactors * 2 / (5 ^ 5); // Value between 0 and 2
+        float positiveFactors = (GetFactor(temperature, temperatureWeight) + GetFactor(sun, sunWeight) + GetFactor(rain, rainWeight) + GetFactor(soilQuality, soilQualityWeight) + GetFactor(humidity, humidityWeight)) / positiveTotalWeight;
+        positiveFactors = positiveFactors * 2 / 5*5; // Value between 0 and 2
 
-        //float positiveFactors = (temperature * sun * rain * soilQuality * humidity * 2) / (5 ^ 5); // Value between 0 and 2
-        float negativeFactors = ((airPolution * airPolutionWeight) + (radiation * radiationWeight)) / negativeTotalWeight;
+        float negativeFactors = (GetFactor(airPolution, airPolutionWeight) + GetFactor(radiation, radiationWeight)) / negativeTotalWeight;
         negativeFactors = negativeFactors / 10; // value between 0 and 1
 
         float lengthFactor = positiveFactors - (negativeFactors * 0.5f); // Value between -0.5 and 1.5
@@ -83,14 +91,18 @@ public class DiceRolls : MonoBehaviour
     /**
      * Number between -17.5 degrees and 17.5 degrees
      */
-    public float GetRotation()
+    public float GetRotationY()
     {
-        //It can rotate 35 degrees, 7 dice * 6 eyes = 42, but 1 is the lowest. So 7 * (6 - 1) = 35 eyes
-        //35 degrees = 17.5 degrees in either direction
-        float rotationDegreesMax = 17.5f;
+        float rotation = -this.soilQuality + this.temperature - this.sun + this.humidity + this.rain - this.radiation + this.airPolution - 2.5f;
+        return rotation;
+    }
 
-        float rotation = this.soilQuality + this.temperature + this.sun + this.humidity + this.rain + this.radiation + this.airPolution - rotationDegreesMax;
-        //Divide the result by whatever to bring the outcome of 17.5 down to the prefered rotation
+    /**
+     * Number between -17.5 degrees and 17.5 degrees
+     */
+    public float GetRotationZ()
+    {
+        float rotation = this.soilQuality - this.temperature + this.sun - this.humidity + this.rain + this.radiation - this.airPolution - 2.5f;
         return rotation;
     }
 
@@ -104,7 +116,7 @@ public class DiceRolls : MonoBehaviour
         const int airPolutionWeight = 13;
         int totalWeight = airPolutionWeight + soilQualityWeight + humidityWeight;
 
-        int lushness = ((soilQuality * soilQualityWeight) + (humidity * humidityWeight) - (airPolution * airPolutionWeight)) / totalWeight; //Value between -5 and 10
+        int lushness = (int)(GetFactor(soilQuality, soilQualityWeight) + GetFactor(humidity, humidityWeight) - GetFactor(airPolution, airPolutionWeight)) / totalWeight; //Value between -5 and 10
         float lushnessFactor = lushness / 10; //Value between -0.5 and 1
         return lushnessFactor;
     }

@@ -12,7 +12,8 @@
 
 # Visual Studio / MonoDevelop / Rider generated files
 plantz_recordings/
-assets/screenshots
+assets/screenshots/
+assets/timelapse_screenshots/
 .vscode/
 .vs/
 .vsconfig

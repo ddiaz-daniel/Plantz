@@ -1,0 +1,138 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &9188278965268151620
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 52584ef24a7f24243bd7c00bc8904934, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 52584ef24a7f24243bd7c00bc8904934, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.2054107
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 52584ef24a7f24243bd7c00bc8904934, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 52584ef24a7f24243bd7c00bc8904934, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.1894181
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 52584ef24a7f24243bd7c00bc8904934, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 52584ef24a7f24243bd7c00bc8904934, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 52584ef24a7f24243bd7c00bc8904934, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 52584ef24a7f24243bd7c00bc8904934, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 52584ef24a7f24243bd7c00bc8904934, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 52584ef24a7f24243bd7c00bc8904934, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 52584ef24a7f24243bd7c00bc8904934, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7577739868436781572, guid: 52584ef24a7f24243bd7c00bc8904934, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: da14af32e3e283c46b95dddd8768f480, type: 2}
+    - target: {fileID: 919132149155446097, guid: 52584ef24a7f24243bd7c00bc8904934, type: 3}
+      propertyPath: m_Name
+      value: BalloonFlower
+      objectReference: {fileID: 0}
+    - target: {fileID: 1893194068992980029, guid: 52584ef24a7f24243bd7c00bc8904934, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: da14af32e3e283c46b95dddd8768f480, type: 2}
+    - target: {fileID: 4514423919813804159, guid: 52584ef24a7f24243bd7c00bc8904934, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 419eba1a811fb1543a67398f9c5cc827, type: 2}
+    - target: {fileID: 8764512836796823172, guid: 52584ef24a7f24243bd7c00bc8904934, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c4821bf0e788e4f4882603874f5697f7, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 52584ef24a7f24243bd7c00bc8904934, type: 3}
+--- !u!23 &442090486738471872 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8764512836796823172, guid: 52584ef24a7f24243bd7c00bc8904934, type: 3}
+  m_PrefabInstance: {fileID: 9188278965268151620}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4694201803943132475 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4514423919813804159, guid: 52584ef24a7f24243bd7c00bc8904934, type: 3}
+  m_PrefabInstance: {fileID: 9188278965268151620}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7333736991713102201 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1893194068992980029, guid: 52584ef24a7f24243bd7c00bc8904934, type: 3}
+  m_PrefabInstance: {fileID: 9188278965268151620}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7590015307771730104 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7577739868436781572, guid: 52584ef24a7f24243bd7c00bc8904934, type: 3}
+  m_PrefabInstance: {fileID: 9188278965268151620}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8305265363991216149 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 52584ef24a7f24243bd7c00bc8904934, type: 3}
+  m_PrefabInstance: {fileID: 9188278965268151620}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1609402919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8305265363991216149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abaabc5073b05f4b9d3addc081f10da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  growVinesMeshes:
+  - {fileID: 4694201803943132475}
+  - {fileID: 7590015307771730104}
+  - {fileID: 442090486738471872}
+  - {fileID: 7333736991713102201}
+  timeToGrow: 25
+  refreshRate: 0.05
+  finalLength: 1
+--- !u!114 &4376497915055070270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8305265363991216149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 569847a92c61de9419698501800259ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 100
+  name: BalloonFlower
+  minLength: 0.3
+  maxLength: 1
+  defaultGrowthSpeed: 10
+  layerValue: 10

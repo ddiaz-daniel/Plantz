@@ -7,73 +7,56 @@ public class GrowVines : MonoBehaviour
     public List<MeshRenderer> growVinesMeshes;
     public float timeToGrow = 5.0f;
     public float refreshRate = 0.05f;
-    [Range(0, 1)]
-    public float minGrowAmount = 0.2f;
-    [Range(0, 1)]
-    public float maxGrowAmount = 0.97f;
+    public float finalLength = 1.0f;
 
     private List<Material> growVinesMaterials = new List<Material>();
     private bool fullyGrown = false;
+    private Dictionary<Material, Coroutine> runningCoroutines = new Dictionary<Material, Coroutine>();
 
     void Start()
     {
-        for (int i = 0; i < growVinesMeshes.Count; i++)
+        //Init
+        foreach (MeshRenderer meshRenderer in growVinesMeshes)
         {
-            for (int j = 0; j < growVinesMeshes[i].materials.Length; j++)
+            foreach (Material material in meshRenderer.materials)
             {
-                if (growVinesMeshes[i].materials[j].HasProperty("Grow_"))
+                if (material.HasProperty("Grow_"))
                 {
-                    growVinesMeshes[i].materials[j].SetFloat("Grow_", minGrowAmount);
-                    growVinesMaterials.Add(growVinesMeshes[i].materials[j]);
+                    material.SetFloat("Grow_", 0f);
+                    growVinesMaterials.Add(material);
                 }
             }
-
-
         }
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
+        //Start growing
+        foreach (Material material in growVinesMaterials)
         {
-            for (int i = 0; i < growVinesMaterials.Count; i++)
+            if (!runningCoroutines.ContainsKey(material))
             {
-                StartCoroutine(GrowVinesOverTime(growVinesMaterials[i]));
+                Coroutine coroutine = StartCoroutine(GrowVinesOverTime(material));
+                runningCoroutines[material] = coroutine;
             }
         }
-
     }
 
     IEnumerator GrowVinesOverTime(Material material)
     {
         float growValue = material.GetFloat("Grow_");
-        if (!fullyGrown)
+        float targetValue = fullyGrown ? 0f : finalLength;
+        float initialGrowValue = growValue;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < timeToGrow)
         {
-            while (growValue < maxGrowAmount)
-            {
-                growValue += refreshRate / timeToGrow;
-                material.SetFloat("Grow_", growValue);
-                yield return new WaitForSeconds(refreshRate);
-            }
-        }
-        else
-        {
-            while (growValue > minGrowAmount)
-            {
-                growValue -= refreshRate / timeToGrow;
-                material.SetFloat("Grow_", growValue);
-                yield return new WaitForSeconds(refreshRate);
-            }
+            elapsedTime += refreshRate;
+            growValue = Mathf.Lerp(initialGrowValue, targetValue, elapsedTime / timeToGrow);
+            material.SetFloat("Grow_", growValue);
+            yield return new WaitForSeconds(refreshRate);
         }
 
-        if (growValue >= maxGrowAmount)
-        {
-            fullyGrown = true;
-        }
-        else if (growValue <= minGrowAmount)
-        {
-            fullyGrown = false;
-        }
+        material.SetFloat("Grow_", targetValue);
+
+        fullyGrown = !fullyGrown;
+        runningCoroutines.Remove(material);
     }
 }
