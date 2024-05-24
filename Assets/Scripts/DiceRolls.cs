@@ -63,7 +63,7 @@ public class DiceRolls : MonoBehaviour
     }
 
     /**
-     * Value between -0.5 and 1.5
+     * Value between 0 and 1
      */
     public float GetLengthFactor()
     {
@@ -79,13 +79,21 @@ public class DiceRolls : MonoBehaviour
         int negativeTotalWeight = airPolutionWeight + radiationWeight;
 
         float positiveFactors = (GetFactor(temperature, temperatureWeight) + GetFactor(sun, sunWeight) + GetFactor(rain, rainWeight) + GetFactor(soilQuality, soilQualityWeight) + GetFactor(humidity, humidityWeight)) / positiveTotalWeight;
-        positiveFactors = positiveFactors * 2 / 5*5; // Value between 0 and 2
+        positiveFactors = positiveFactors / 5; // Value between 0 and 1
 
         float negativeFactors = (GetFactor(airPolution, airPolutionWeight) + GetFactor(radiation, radiationWeight)) / negativeTotalWeight;
-        negativeFactors = negativeFactors / 10; // value between 0 and 1
+        negativeFactors = negativeFactors / 5 / 2; // value between 0 and 0.5
 
-        float lengthFactor = positiveFactors - (negativeFactors * 0.5f); // Value between -0.5 and 1.5
+        float lengthFactor = positiveFactors - negativeFactors; // Value between -0.5 and 1
         return lengthFactor;
+    }
+
+    /**
+ * Value between 0 and 1
+ */
+    public float GetHeightFactor()
+    {
+        return airPolution / 5;
     }
 
     /**
@@ -108,6 +116,7 @@ public class DiceRolls : MonoBehaviour
 
     /**
      * Value between -0.5 and 1
+     * TODO : Unused, but could be implemented where it defines the sun value of the shader, if this could be configuered per plant
      */
     public float GetLushnessFactor()
     {

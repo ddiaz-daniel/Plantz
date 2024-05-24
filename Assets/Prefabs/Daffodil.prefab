@@ -52,9 +52,9 @@ MonoBehaviour:
   - {fileID: 3778022170555071443}
   - {fileID: 1010008031528005449}
   - {fileID: 4106640062166166034}
-  timeToGrow: 15
+  timeToGrow: 6.06383
   refreshRate: 0.05
-  finalLength: 1
+  finalLength: 0.6632558
 --- !u!114 &-7451075720667755165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,10 +69,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 104
   name: Daffodil
-  minLength: 0.3
+  minLength: 0.6
   maxLength: 1
   defaultGrowthSpeed: 15
   layerValue: 2
+  maxHeightVariance: 0.1
 --- !u!1 &3365005830167078528
 GameObject:
   m_ObjectHideFlags: 0

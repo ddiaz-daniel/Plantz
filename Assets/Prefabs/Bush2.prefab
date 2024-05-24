@@ -99,9 +99,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   growVinesMeshes:
   - {fileID: 2809020578839204900}
-  timeToGrow: 20
+  timeToGrow: 23.404255
   refreshRate: 0.05
-  finalLength: 1
+  finalLength: 0.76988375
 --- !u!114 &-5458622053809585400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,7 +116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 102
   name: Bush2
-  minLength: 0.3
+  minLength: 0.6
   maxLength: 1
   defaultGrowthSpeed: 20
   layerValue: 15
+  maxHeightVariance: 0.7

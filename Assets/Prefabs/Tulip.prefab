@@ -117,9 +117,9 @@ MonoBehaviour:
   - {fileID: 5143093430974212009}
   - {fileID: 131342052092727883}
   - {fileID: 8189237014413255410}
-  timeToGrow: 10
+  timeToGrow: 0.9042553
   refreshRate: 0.05
-  finalLength: 1
+  finalLength: 0.631407
 --- !u!114 &6253128274625459426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,10 +134,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 106
   name: Tulip
-  minLength: 0.3
+  minLength: 0.6
   maxLength: 0.97
   defaultGrowthSpeed: 5
   layerValue: 2
+  maxHeightVariance: 0.3
 --- !u!23 &8189237014413255410 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 1893194068992980029, guid: 690a4f2f7768f4543964706b8cf38f4b, type: 3}

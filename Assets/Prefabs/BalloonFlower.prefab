@@ -115,9 +115,9 @@ MonoBehaviour:
   - {fileID: 7590015307771730104}
   - {fileID: 442090486738471872}
   - {fileID: 7333736991713102201}
-  timeToGrow: 25
+  timeToGrow: 9.148936
   refreshRate: 0.05
-  finalLength: 1
+  finalLength: 0.78459305
 --- !u!114 &4376497915055070270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,7 +132,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 100
   name: BalloonFlower
-  minLength: 0.3
+  minLength: 0.6
   maxLength: 1
   defaultGrowthSpeed: 10
   layerValue: 10
+  maxHeightVariance: 2

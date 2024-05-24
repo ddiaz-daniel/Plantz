@@ -898,9 +898,9 @@ MonoBehaviour:
   - {fileID: 6851242493860782585}
   - {fileID: 451405413081503905}
   - {fileID: 2415376945594813862}
-  timeToGrow: 1.2765957
+  timeToGrow: 2.2340426
   refreshRate: 0.05
-  finalLength: 2.6718605
+  finalLength: 0.5955814
 --- !u!114 &3089668338955788009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -915,10 +915,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 107
   name: Vine
-  minLength: 0.3
+  minLength: 0.6
   maxLength: 1
   defaultGrowthSpeed: 5
   layerValue: 0
+  maxHeightVariance: 0.4
 --- !u!1 &7820965996467959289
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,4 +13,6 @@ public class PlantType : MonoBehaviour
     public int defaultGrowthSpeed;
     [Range(0, 100)]
     public int layerValue; //Position Z
+    [Range(0, 3)]
+    public float maxHeightVariance; //The amount the plant can be lowered at max 
 }

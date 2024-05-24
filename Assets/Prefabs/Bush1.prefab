@@ -301,9 +301,9 @@ MonoBehaviour:
   - {fileID: 1167369587331909682}
   - {fileID: 7772380127053291837}
   - {fileID: 4216596126510367254}
-  timeToGrow: 30
+  timeToGrow: 8.617022
   refreshRate: 0.05
-  finalLength: 1
+  finalLength: 0.6640698
 --- !u!114 &6725622638499408498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,7 +318,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 101
   name: Bush1
-  minLength: 0.3
+  minLength: 0.6
   maxLength: 1
   defaultGrowthSpeed: 30
   layerValue: 20
+  maxHeightVariance: 0.1
