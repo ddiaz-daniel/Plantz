@@ -11,7 +11,13 @@
 /[Aa]ssets/AssetStoreTools*
 
 # Visual Studio / MonoDevelop / Rider generated files
+plantz_recordings/
+assets/screenshots/
+assets/timelapse_screenshots/
 .vscode/
+.vs/
+.vsconfig
+UserSettings/
 *.sln
 *.csproj
 *.suo
