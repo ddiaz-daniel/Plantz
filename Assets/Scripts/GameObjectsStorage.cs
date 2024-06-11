@@ -1,33 +1,99 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class GameObjectsStorage : MonoBehaviour
 {
     public List<GameObject> plantPrefabs;
+    private GetTagPosition tagPositionFetcher;
+    private GetDiceRoll diceRollFetcher;
+    private int UserSelectedPlantId;
+    private float UserSelectedPositionX;
+    private bool isPlantingDone = true;
+    private bool isRollingTime = false;
 
     void Start()
     {
-        PlantSeed(0, 0, new DiceRolls());
+        InvokeRepeating("StartFetchAndUsePosition", 1.0f, 1.0f);
     }
 
-    void Update()
+    void StartFetchAndUsePosition()
     {
-        if (Input.GetKeyDown(KeyCode.G))
+        StartCoroutine(FetchAndUsePosition());
+    }
+
+    private IEnumerator FetchAndUsePosition()
+    {
+        Debug.Log("isRollingTime: " + isRollingTime);
+        Debug.Log("isPlantingDone: " + isPlantingDone);
+        if (!isRollingTime)
         {
-            DiceRolls diceRolls = new DiceRolls();
-            PlantSeed(Random.Range(100, 108), Random.Range(0, 20), diceRolls);
+            Debug.Log("Place card on the table");
+            tagPositionFetcher = new GetTagPosition(); // Reset fetcher
+
+            // Start the position fetch coroutine
+            Task task = tagPositionFetcher.GetPositionAsync();
+            yield return new WaitUntil(() => task.IsCompleted);
+
+            if (task.Exception != null)
+            {
+                Debug.LogError(task.Exception);
+                yield break;
+            }
+
+            // Now use the fetched positionX value
+            if (tagPositionFetcher.PlantTypeId > 1)
+            {
+                UserSelectedPlantId = tagPositionFetcher.PlantTypeId;
+                UserSelectedPositionX = tagPositionFetcher.PositionX;
+                Debug.Log(UserSelectedPlantId);
+                isPlantingDone = false;
+            }
+            else if (tagPositionFetcher.PlantTypeId == 1 && !isPlantingDone)
+            {
+                isRollingTime = true;
+            }
+        }
+        else if (isRollingTime && !isPlantingDone)
+        {
+            Debug.Log("Rolling time");
+            diceRollFetcher = new GetDiceRoll(); // Reset fetcher
+
+            // Start the dice fetch coroutine
+            Task diceTask = diceRollFetcher.GetDiceAsync();
+            yield return new WaitUntil(() => diceTask.IsCompleted);
+
+            if (diceTask.Exception != null)
+            {
+                Debug.LogError(diceTask.Exception);
+                yield break;
+            }
+
+            // if there are not at least 6 dice rolls, the plant will not be planted
+            if (diceRollFetcher.RedDiceCount + diceRollFetcher.PinkDiceCount + diceRollFetcher.GreenDiceCount + diceRollFetcher.BlueDiceCount +
+                diceRollFetcher.DarkBlueDiceCount + diceRollFetcher.DarkGreenDiceCount + diceRollFetcher.YellowDiceCount < 6)
+            {
+                Debug.LogError("Not enough dice rolls");
+                yield break;
+            }
+            else
+            {
+                Debug.Log("Planting with dice rolls");
+                DiceRolls diceRolls = new DiceRolls(diceRollFetcher.RedDiceCount, diceRollFetcher.PinkDiceCount, diceRollFetcher.GreenDiceCount,
+                    diceRollFetcher.BlueDiceCount, diceRollFetcher.DarkBlueDiceCount, diceRollFetcher.DarkGreenDiceCount, diceRollFetcher.YellowDiceCount);
+                isPlantingDone = true;
+                isRollingTime = false;
+                PlantSeed(UserSelectedPlantId, UserSelectedPositionX, diceRolls);
+
+            }
         }
     }
 
-    /**
-     * plantTypeId from 0 to 7
-     * positionX from ??? to ???
-     * diceRolls
-     */
     public void PlantSeed(int plantTypeId, float positionX, DiceRolls diceRolls)
     {
         GameObject prefabPlant = plantPrefabs.Find(
-            t => t.GetComponent<PlantType>().id == plantTypeId
+            t => t.GetComponent<PlantType>().id == plantTypeId + 100
         );
 
         if (prefabPlant == null)
@@ -36,6 +102,7 @@ public class GameObjectsStorage : MonoBehaviour
             return;
         }
 
+        positionX = ClampPositionX(positionX, 1);
         PlantType plantType = prefabPlant.GetComponent<PlantType>();
         Plant plant = new Plant(plantType, positionX, diceRolls);
 
@@ -47,5 +114,26 @@ public class GameObjectsStorage : MonoBehaviour
         Instantiate(prefabPlant, plant.position, rotation);
 
         //If you would want to write everything away for backup purposes writing away the Plant objects would do the trick. Then you would need something else to load them in again
+    }
+
+    float ClampPositionX(float positionX, int plantType)
+    {
+        float clampedPositionX = positionX;
+        Debug.Log("The positionX is: " + positionX);
+        // Adjust the clamping based on the plant type
+        if (plantType == 1)
+        {
+            clampedPositionX = (positionX * 23f / 580f) - 11f;
+        }
+        else if (plantType == 2)
+        {
+            clampedPositionX = (positionX * 26f / 580f) - 13f;
+        }
+        else if (plantType == 3)
+        {
+            clampedPositionX = (positionX * 26f / 580f) - 13f;
+        }
+
+        return clampedPositionX;
     }
 }

@@ -117,9 +117,9 @@ MonoBehaviour:
   - {fileID: 5143093430974212009}
   - {fileID: 131342052092727883}
   - {fileID: 8189237014413255410}
-  timeToGrow: 0.9042553
+  timeToGrow: 3.2978723
   refreshRate: 0.05
-  finalLength: 0.631407
+  finalLength: 0.64302325
 --- !u!114 &6253128274625459426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,7 +137,7 @@ MonoBehaviour:
   minLength: 0.6
   maxLength: 0.97
   defaultGrowthSpeed: 5
-  layerValue: 2
+  layerValue: 1
   maxHeightVariance: 0.3
 --- !u!23 &8189237014413255410 stripped
 MeshRenderer:

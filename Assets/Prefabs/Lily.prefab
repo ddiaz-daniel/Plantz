@@ -52,9 +52,9 @@ MonoBehaviour:
   - {fileID: 2556859175680589664}
   - {fileID: 1806425097835850746}
   - {fileID: 3452085645387951777}
-  timeToGrow: 18.723404
+  timeToGrow: 17.659575
   refreshRate: 0.05
-  finalLength: 0.7952326
+  finalLength: 0.6445349
 --- !u!114 &6029827070351972260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,10 +69,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 105
   name: Lily
-  minLength: 0.6
+  minLength: 0.9
   maxLength: 1
   defaultGrowthSpeed: 20
-  layerValue: 5
+  layerValue: 1
   maxHeightVariance: 1
 --- !u!1 &4154311186409955891
 GameObject:

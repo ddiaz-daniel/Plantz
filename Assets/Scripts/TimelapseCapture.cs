@@ -37,6 +37,6 @@ public class TimelapseCapture : MonoBehaviour
         string screenshotFilename = Path.Combine(screenshotsFolder, $"screenshot_{screenshotCount:D4}.png");
         ScreenCapture.CaptureScreenshot(screenshotFilename);
         screenshotCount++;
-        Debug.Log($"Screenshot saved: {screenshotFilename}");
+        //Debug.Log($"Screenshot saved: {screenshotFilename}");
     }
 }

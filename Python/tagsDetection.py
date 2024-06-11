@@ -34,6 +34,8 @@ detected_markers = []
 detected_dice = []
 frame_lock = threading.Lock()
 current_frame = None
+dice_min_area = 200
+dice_max_area = 2000
 
 
 def detect_all_dice(frame, color_ranges):
@@ -51,7 +53,7 @@ def detect_all_dice(frame, color_ranges):
 
         for contour in contours_dice:
             area = cv2.contourArea(contour)
-            if 400 < area < 4000:
+            if dice_min_area < area < dice_max_area:
                 x, y, w, h = cv2.boundingRect(contour)
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
@@ -64,10 +66,10 @@ def detect_all_dice(frame, color_ranges):
                     mask_dot, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
                 dots_count = sum(
-                    1 for dot_contour in contours_dot if 5 < cv2.contourArea(dot_contour) < 200)
+                    1 for dot_contour in contours_dot if 1 < cv2.contourArea(dot_contour) < 20)
 
                 cv2.putText(frame, f"{dots_count}", (x, y - 10),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, color_range["upper_dot"], 2)
 
                 dice_info.append({
                     "color": color_name,
@@ -101,7 +103,7 @@ color_ranges = {
 def detect_markers_and_dice():
     """Continuously capture frames and detect ArUco markers and dice."""
     global detected_markers, detected_dice, current_frame
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(0)
     detector = cv2.aruco.ArucoDetector(dictionary, parameters)
 
     while True:

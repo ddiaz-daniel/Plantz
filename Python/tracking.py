@@ -83,24 +83,17 @@ color_ranges = {
     "black": {"lower_dice": (0, 0, 0), "upper_dice": (180, 255, 30),
               "lower_dot": (0, 0, 170), "upper_dot": (179, 80, 255)},
 }
-video_url = 'http://192.168.137.4:8080/shot.jpg'
+
 
 while True:
-    # Capture frame-by-frame
-    img_resp = requests.get(video_url)
-    img_arr = np.array(bytearray(img_resp.content), dtype=np.uint8)
-    frame = cv2.imdecode(img_arr, -1)
+    cap = cv2.VideoCapture(0)
 
-    # Check if the frame is valid
-    if not frame is None:
-        # Detect all dice in the frame
+    while True:
+        success, frame = cap.read()
+        if not success:
+            continue
+
         detect_all_dice(frame, color_ranges)
-    else:
-        print('Error loading the frame')
-
-    # Exit if 'q' is pressed
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
 
 
 # Release the video stream
