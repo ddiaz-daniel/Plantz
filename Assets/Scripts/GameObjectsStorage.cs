@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 public class GameObjectsStorage : MonoBehaviour
 {
+    public GameObject seedPrefab;
+    public GameObject magicPlantEffectPrefab;
+
     public List<GameObject> plantPrefabs;
     private GetTagPosition tagPositionFetcher;
     private GetDiceRoll diceRollFetcher;
@@ -15,7 +18,7 @@ public class GameObjectsStorage : MonoBehaviour
 
     void Start()
     {
-        InvokeRepeating("StartFetchAndUsePosition", 1.0f, 1.0f);
+        //InvokeRepeating("StartFetchAndUsePosition", 1.0f, 1.0f);
     }
 
     void StartFetchAndUsePosition()
@@ -52,6 +55,9 @@ public class GameObjectsStorage : MonoBehaviour
             }
             else if (tagPositionFetcher.PlantTypeId == 1 && !isPlantingDone)
             {
+                //Visualise seed being planted
+                PlantSeedRoutine(new Vector3(UserSelectedPositionX, 0, 0));
+
                 isRollingTime = true;
             }
         }
@@ -85,7 +91,6 @@ public class GameObjectsStorage : MonoBehaviour
                 isPlantingDone = true;
                 isRollingTime = false;
                 PlantSeed(UserSelectedPlantId, UserSelectedPositionX, diceRolls);
-
             }
         }
     }
@@ -111,6 +116,11 @@ public class GameObjectsStorage : MonoBehaviour
         growVines.timeToGrow = plant.growSpeed;
 
         Quaternion rotation = prefabPlant.transform.rotation * plant.rotation;
+
+        //Visualise seed being planted
+        MagicPlantingEffectRoutine(plant.position);
+
+        //Create Plant
         Instantiate(prefabPlant, plant.position, rotation);
 
         //If you would want to write everything away for backup purposes writing away the Plant objects would do the trick. Then you would need something else to load them in again
@@ -135,5 +145,41 @@ public class GameObjectsStorage : MonoBehaviour
         }
 
         return clampedPositionX;
+    }
+
+    /**
+     * DEBUGGING
+     */
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            MagicPlantingEffectRoutine(new Vector3(0, 0, 0));
+            PlantSeedRoutine(new Vector3(0, 0, 0));
+        }
+    }
+
+    private void MagicPlantingEffectRoutine(Vector3 position)
+    {
+        // Create a new GameObject to hold the PlantSeed script
+        GameObject magicPlantingEffectManager = new GameObject("MagicPlantingEffectManager");
+
+        // Add the PlantSeed script to the GameObject
+        MagicPlantingEffect magicPlantingEffect = magicPlantingEffectManager.AddComponent<MagicPlantingEffect>();
+
+        // Initialize the PlantSeed script to start the planting process
+        magicPlantingEffect.Initialize(magicPlantEffectPrefab, position);
+    }
+
+    private void PlantSeedRoutine(Vector3 position)
+    {
+        // Create a new GameObject to hold the PlantSeed script
+        GameObject seedManager = new GameObject("SeedManager");
+
+        // Add the PlantSeed script to the GameObject
+        PlantSeed plantSeed = seedManager.AddComponent<PlantSeed>();
+
+        // Initialize the PlantSeed script to start the planting process
+        plantSeed.Initialize(seedPrefab, position);
     }
 }

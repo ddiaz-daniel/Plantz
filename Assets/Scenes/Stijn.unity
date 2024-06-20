@@ -233,6 +233,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9566feb68d55cf64d89d81f668f8d716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seedPrefab: {fileID: 6396372618934715011, guid: 70e694a00e7dc654ea15bdb4af187e8e, type: 3}
+  magicPlantEffectPrefab: {fileID: 5347493457094898865, guid: 47620a1908f2b4f42bfb93c2f394e01d, type: 3}
+  plantPrefabs: []
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,7 +437,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bb1d3f5e5d562948906d2243885dc2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObjectsStorage: {fileID: 571545721}
 --- !u!135 &1028408526
 SphereCollider:
   m_ObjectHideFlags: 0

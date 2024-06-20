@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.40256336, g: 0.69826096, b: 0.92510676, a: 1}
+  m_IndirectSpecularColor: {r: 0.4024338, g: 0.6981446, b: 0.9250072, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -378,8 +378,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee0d33c4682a69f40b297e5b191b391e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skyboxImage: {fileID: 2100000, guid: 6bfab16f387f95e4bb60f866299be241, type: 2}
-  speed: 1
 --- !u!114 &627848543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,6 +440,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9566feb68d55cf64d89d81f668f8d716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seedPrefab: {fileID: 6396372618934715011, guid: 70e694a00e7dc654ea15bdb4af187e8e, type: 3}
+  magicPlantEffectPrefab: {fileID: 5347493457094898865, guid: 47620a1908f2b4f42bfb93c2f394e01d, type: 3}
   plantPrefabs:
   - {fileID: 8199391251596753296, guid: 58728254e1d3bf24f99e9ec190aab92b, type: 3}
   - {fileID: 4466261472507770353, guid: 16beb1e33699a124696ae64ece6f853d, type: 3}
