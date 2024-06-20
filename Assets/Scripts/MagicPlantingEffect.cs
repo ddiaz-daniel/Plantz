@@ -5,6 +5,7 @@ public class MagicPlantingEffect : MonoBehaviour
     private GameObject magicEffectInstance;
     private float effectTimer;
     private bool isEffectActive;
+    private float effectDuration = 2f;
 
     public void Initialize(GameObject magicPlantingEffectPrefab, Vector3 targetPosition)
     {
@@ -21,7 +22,7 @@ public class MagicPlantingEffect : MonoBehaviour
             effectTimer += Time.deltaTime;
 
             // If the effect has been active for 2 seconds, delete it
-            if (effectTimer >= 2f)
+            if (effectTimer >= effectDuration)
             {
                 Destroy(magicEffectInstance);
                 isEffectActive = false;

@@ -18,7 +18,7 @@ public class GameObjectsStorage : MonoBehaviour
 
     void Start()
     {
-        //InvokeRepeating("StartFetchAndUsePosition", 1.0f, 1.0f);
+        InvokeRepeating("StartFetchAndUsePosition", 1.0f, 1.0f);
     }
 
     void StartFetchAndUsePosition()
