@@ -199,7 +199,7 @@ if __name__ == "__main__":
         ret, frame = cap.read()
         if not ret:
             break
-        cv2.imshow('Result', detect_dice_and_aruco(frame))
+        # cv2.imshow('Result', detect_dice_and_aruco(frame))
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
