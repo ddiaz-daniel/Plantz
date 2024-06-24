@@ -131,9 +131,9 @@ MonoBehaviour:
   - {fileID: 7590015307771730104}
   - {fileID: 442090486738471872}
   - {fileID: 7333736991713102201}
-  timeToGrow: 7.9787235
+  timeToGrow: 3.5106382
   refreshRate: 0.05
-  finalLength: 0.8194186
+  finalLength: 1.01
 --- !u!114 &4376497915055070270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 569847a92c61de9419698501800259ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 100
+  id: 103
   name: BalloonFlower
   minLength: 0.6
   maxLength: 1

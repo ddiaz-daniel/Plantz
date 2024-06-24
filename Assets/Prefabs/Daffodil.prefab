@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 569847a92c61de9419698501800259ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 104
+  id: 106
   name: Daffodil
   minLength: 0.6
   maxLength: 1

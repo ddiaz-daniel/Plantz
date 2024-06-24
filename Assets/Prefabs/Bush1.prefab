@@ -301,9 +301,9 @@ MonoBehaviour:
   - {fileID: 1167369587331909682}
   - {fileID: 7772380127053291837}
   - {fileID: 4216596126510367254}
-  timeToGrow: 40.851063
+  timeToGrow: 12.765958
   refreshRate: 0.05
-  finalLength: 0.90482557
+  finalLength: 0.8265698
 --- !u!114 &6725622638499408498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,10 +316,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 569847a92c61de9419698501800259ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 101
+  id: 105
   name: Bush1
   minLength: 0.8
   maxLength: 1
   defaultGrowthSpeed: 30
-  layerValue: 2
+  layerValue: 3
   maxHeightVariance: 0.1

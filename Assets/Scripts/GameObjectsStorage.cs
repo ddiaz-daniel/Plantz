@@ -7,7 +7,7 @@ public class GameObjectsStorage : MonoBehaviour
 {
     public GameObject seedPrefab;
     public GameObject magicPlantEffectPrefab;
-
+    public GameObject magicCircleEffectPrefab;
     public List<GameObject> plantPrefabs;
     private GetTagPosition tagPositionFetcher;
     private GetDiceRoll diceRollFetcher;
@@ -15,6 +15,7 @@ public class GameObjectsStorage : MonoBehaviour
     private float UserSelectedPositionX;
     private bool isPlantingDone = true;
     private bool isRollingTime = false;
+    private GameObject magicCircle;
 
     void Start()
     {
@@ -52,7 +53,19 @@ public class GameObjectsStorage : MonoBehaviour
                 UserSelectedPositionX = tagPositionFetcher.PositionX;
                 Debug.Log(UserSelectedPlantId);
                 isPlantingDone = false;
+
+                // Instantiate or move the magic circle
+                if (magicCircle == null)
+                {
+                    magicCircle = Instantiate(magicCircleEffectPrefab, new Vector3(UserSelectedPositionX, 0, 10f), Quaternion.identity);
+                    magicCircle.tag = "MagicCircle";
+                }
+                else
+                {
+                    magicCircle.transform.position = new Vector3(UserSelectedPositionX, 0, 10f);
+                }
             }
+
             else if (tagPositionFetcher.PlantTypeId == 1 && !isPlantingDone)
             {
                 //Visualise seed being planted
@@ -90,6 +103,12 @@ public class GameObjectsStorage : MonoBehaviour
                     diceRollFetcher.BlueDiceCount, diceRollFetcher.DarkBlueDiceCount, diceRollFetcher.DarkGreenDiceCount, diceRollFetcher.YellowDiceCount);
                 isPlantingDone = true;
                 isRollingTime = false;
+                // Destroy the magic circle before planting
+                if (magicCircle != null)
+                {
+                    Destroy(magicCircle);
+                    magicCircle = null;
+                }
                 PlantSeed(UserSelectedPlantId, UserSelectedPositionX, diceRolls);
             }
         }
@@ -126,7 +145,39 @@ public class GameObjectsStorage : MonoBehaviour
         //If you would want to write everything away for backup purposes writing away the Plant objects would do the trick. Then you would need something else to load them in again
     }
 
-    float ClampPositionX(float positionX, int plantType)
+    public void PlantSeedOffline(int plantTypeId, float positionX)
+    {
+        GameObject prefabPlant = plantPrefabs.Find(
+            t => t.GetComponent<PlantType>().id == plantTypeId + 100
+        );
+
+        if (prefabPlant == null)
+        {
+            Debug.LogError($"Did not find PlantType: {plantTypeId}");
+            return;
+        }
+
+        DiceRolls randomDiceRolls = new DiceRolls();
+        PlantType plantType = prefabPlant.GetComponent<PlantType>();
+        Plant plant = new Plant(plantType, positionX, randomDiceRolls);
+
+        GrowVines growVines = prefabPlant.GetComponent<GrowVines>();
+        growVines.finalLength = plant.finalLength;
+        growVines.timeToGrow = plant.growSpeed;
+
+        Quaternion rotation = prefabPlant.transform.rotation * plant.rotation;
+
+        //Visualise seed being planted
+        MagicPlantingEffectRoutine(plant.position);
+
+        //Create Plant
+        Instantiate(prefabPlant, plant.position, rotation);
+
+        //If you would want to write everything away for backup purposes writing away the Plant objects would do the trick. Then you would need something else to load them in again
+    }
+
+
+    public float ClampPositionX(float positionX, int plantType)
     {
         float clampedPositionX = positionX;
         Debug.Log("The positionX is: " + positionX);
@@ -159,7 +210,7 @@ public class GameObjectsStorage : MonoBehaviour
         }
     }
 
-    private void MagicPlantingEffectRoutine(Vector3 position)
+    public void MagicPlantingEffectRoutine(Vector3 position)
     {
         // Create a new GameObject to hold the PlantSeed script
         GameObject magicPlantingEffectManager = new GameObject("MagicPlantingEffectManager");
@@ -170,6 +221,7 @@ public class GameObjectsStorage : MonoBehaviour
         // Initialize the PlantSeed script to start the planting process
         magicPlantingEffect.Initialize(magicPlantEffectPrefab, position);
     }
+
 
     private void PlantSeedRoutine(Vector3 position)
     {

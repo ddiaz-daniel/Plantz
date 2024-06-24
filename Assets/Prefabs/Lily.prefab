@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 569847a92c61de9419698501800259ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 105
+  id: 107
   name: Lily
   minLength: 0.9
   maxLength: 1

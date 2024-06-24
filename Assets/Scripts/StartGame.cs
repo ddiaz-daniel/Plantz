@@ -14,53 +14,44 @@ public class StartGame : MonoBehaviour
     {
         if (loadSceneMouse != null)
         {
-            loadSceneMouse.onClick.AddListener(OnLoadSceneButtonClick);
-            Debug.Log("Button listener added.");
+            loadSceneMouse.onClick.AddListener(() => OnLoadSceneButtonClick(1));
         }
         else
         {
-            Debug.LogError("Load scene button is not assigned.");
         }
 
         if (loadSceneCamera != null)
         {
-            loadSceneCamera.onClick.AddListener(OnLoadSceneButtonClick);
-            Debug.Log("Button listener added.");
+            loadSceneCamera.onClick.AddListener(() => OnLoadSceneButtonClick(2));
         }
         else
         {
-            Debug.LogError("Load scene button is not assigned.");
         }
     }
 
-    void OnLoadSceneButtonClick()
+    void OnLoadSceneButtonClick(int controllerType)
     {
-        Debug.Log("Load scene button clicked.");
-        StartCoroutine(LoadScene());
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.SetupControllers(controllerType);
+            StartCoroutine(LoadScene());
+        }
+        else
+        {
+        }
     }
 
     IEnumerator LoadScene()
     {
-        // Check if scene name is assigned
         if (string.IsNullOrEmpty(sceneToLoad))
         {
-            Debug.LogError("Scene to load is not specified.");
             yield break;
         }
 
-        // Unload the current scene
         Scene currentScene = SceneManager.GetActiveScene();
-        Debug.Log($"Unloading current scene: {currentScene.name}");
-        SceneManager.UnloadScene(currentScene);
+        yield return SceneManager.UnloadSceneAsync(currentScene);
 
-
-
-        Debug.Log($"Loading new scene: {sceneToLoad}");
-        // Load the new scene
         SceneManager.LoadScene(sceneToLoad);
 
-
-
-        Debug.Log("New scene loaded successfully.");
     }
 }
